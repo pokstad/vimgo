@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-dispatch'
 
 " all of your Plugins must be added before the following line
 call plug#end()            " required
