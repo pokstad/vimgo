@@ -18,14 +18,11 @@ Nerd Tree is a file viewer we can access with F7:
 
 `nmap <F7> :NERDTreeTabsToggle<CR>`
 
-Hidden files can be revealed with `I`.
-
-Move the root dir up with `u`.
-
-Change the working dir to the selected dir with `cd`.
-
-Change the nerdtree dir to the selected dir with `C`.
-
+- Hidden files can be revealed with `I`.
+- Move the root dir up with `u`.
+- Change the working dir to the selected dir with `cd`.
+- Change the nerdtree dir to the selected dir with `C`.
+- Open selected item in new VIM tab with `o`.
 
 # Tabs
 
@@ -38,3 +35,6 @@ nmap <Left> :tabprevious<CR>
 nmap <Right> :tabnext<CR>
 ```
 
+# TMux
+
+TMux is installed with the Vim-Tmux-navigation plugin to allow navigation between tmux panes and VIM windows with `Ctrl+H|J|K|L` combos.
