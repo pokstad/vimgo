@@ -37,6 +37,9 @@ mkdir -p ~/.vim/
 cd ~/.vim/
 git clone https://github.com/Shougo/neocomplete.vim.git
 
+# Copy over preferences from vimrc file
+cp .vimrc ~/
+
 # Install T-MUX
 brew install tmux
 
