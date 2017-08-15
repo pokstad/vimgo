@@ -4,6 +4,7 @@ call plug#begin()
 
 " custom plugins
 Plug 'fatih/vim-go'
+Plug 'fatih/molokai'
 Plug 'majutsushi/tagbar'
 Plug 'shougo/neocomplete.vim'
 Plug 'scrooloose/nerdtree'
@@ -29,7 +30,16 @@ set number
 set cursorline
 set scrolloff=999
 set encoding=utf-8
+set nocompatible                " Enables us Vim specific 
+set ttyfast                     " Indicate fast terminal conn for faster redraw
+set hlsearch                    " Highlight found searches
+set incsearch                   " Shows the match while typing
+set autoindent                  " Enable Autoindent
+set autowrite                   " Automatically save before :next, :make etc.
+
 colorscheme molokai
+
+set clipboard=unnamed
 
 " plugin customizations
 " neocomplete
@@ -44,6 +54,11 @@ let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+let g:go_build_tags = "unit"
 
 " vim-airline
 set laststatus=2
@@ -89,24 +104,53 @@ nmap <F7> :NERDTreeTabsToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <Left> :tabprevious<CR>
 nmap <Right> :tabnext<CR>
+map <Down> :cnext<CR>
+map <Up> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 
-" show a list of interfaces which is implemented by the type under your cursor
-au FileType go nmap <Leader>s <Plug>(go-implements)
-" show type info for the word under your cursor
-au FileType go nmap <Leader>gi <Plug>(go-info)
-" open the relevant Godoc for the word under the cursor
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-" run Go commands
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <leader>i <Plug>(go-install)
-" open the definition/declaration in a new vertical, horizontal or tab for the
-" word under your cursor
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-" rename the identifier under the cursor to a new name
-au FileType go nmap <Leader>e <Plug>(go-rename)
+augroup go
+  autocmd!
+
+  " Show by default 4 spaces for a tab
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+  " :GoBuild and :GoTestCompile
+  autocmd FileType go nmap <leader>b :GoBuild -tags="unit"<CR>
+
+  " :GoTest
+  autocmd FileType go nmap <leader>t :GoTest -tags="unit"<CR>
+
+  " :GoRun
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+  " :GoDoc
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+  " :GoCoverageToggle
+  autocmd FileType go nmap <Leader>c :GoCoverageToggle -tags="unit"<CR>
+
+  " :GoInfo
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+  " :GoMetaLinter
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+  " :GoDef but opens in a vertical split
+  autocmd FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
+  " :GoDef but opens in a horizontal split
+  autocmd FileType go nmap <Leader>gdh <Plug>(go-def-split)
+
+  " :GoAlternate  commands :A, :AV, :AS and :AT
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+  
+  " :GoRename
+  au FileType go nmap <Leader>e <Plug>(go-rename)
+  
+  " :GoImplements show a list of interfaces which is implemented by the type under your cursor
+  au FileType go nmap <Leader>s <Plug>(go-implements)
+augroup END
