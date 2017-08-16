@@ -18,6 +18,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " all of your Plugins must be added before the following line
 call plug#end()            " required
@@ -59,6 +60,12 @@ let g:go_highlight_fields = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
 let g:go_build_tags = "unit"
+" more go plugin features
+let g:go_auto_type_info = 1
+set updatetime=100
+let g:go_auto_sameids = 1
+let g:go_def_mode = 'guru'
+
 
 " vim-airline
 set laststatus=2
@@ -117,10 +124,10 @@ augroup go
   autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
   " :GoBuild and :GoTestCompile
-  autocmd FileType go nmap <leader>b :GoBuild -tags="unit"<CR>
+  autocmd FileType go nmap <leader>b  <Plug>(go-build)
 
   " :GoTest
-  autocmd FileType go nmap <leader>t :GoTest -tags="unit"<CR>
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
   " :GoRun
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
