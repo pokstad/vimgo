@@ -19,6 +19,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-dispatch'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " all of your Plugins must be added before the following line
 call plug#end()            " required
@@ -32,7 +33,6 @@ set cursorline
 set scrolloff=999
 set encoding=utf-8
 set nocompatible                " Enables us Vim specific 
-set ttyfast                     " Indicate fast terminal conn for faster redraw
 set hlsearch                    " Highlight found searches
 set incsearch                   " Shows the match while typing
 set autoindent                  " Enable Autoindent
@@ -65,7 +65,8 @@ let g:go_auto_type_info = 1
 set updatetime=100
 let g:go_auto_sameids = 1
 let g:go_def_mode = 'guru'
-
+let g:go_info_mode = 'guru'
+let g:go_guru_scope = ['...']
 
 " vim-airline
 set laststatus=2
